@@ -73,17 +73,17 @@ public class ClientesMenu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(401, 401, 401)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(382, 382, 382))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 204));
@@ -100,18 +100,38 @@ public class ClientesMenu extends javax.swing.JFrame {
         Consulta2BTN.setBackground(new java.awt.Color(255, 255, 255));
         Consulta2BTN.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         Consulta2BTN.setText("Consulta 2");
+        Consulta2BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Consulta2BTNActionPerformed(evt);
+            }
+        });
 
         Consultar3BTN.setBackground(new java.awt.Color(255, 255, 255));
         Consultar3BTN.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         Consultar3BTN.setText("Consulta 3");
+        Consultar3BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Consultar3BTNActionPerformed(evt);
+            }
+        });
 
         Consulta4BTN.setBackground(new java.awt.Color(255, 255, 255));
         Consulta4BTN.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         Consulta4BTN.setText("Consulta 4");
+        Consulta4BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Consulta4BTNActionPerformed(evt);
+            }
+        });
 
         Consulta5BTN.setBackground(new java.awt.Color(255, 255, 255));
         Consulta5BTN.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         Consulta5BTN.setText("Consulta 5");
+        Consulta5BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Consulta5BTNActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -393,6 +413,161 @@ public class ClientesMenu extends javax.swing.JFrame {
     }
         
     }//GEN-LAST:event_Consulta1BTNActionPerformed
+
+    private void Consulta2BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Consulta2BTNActionPerformed
+        Consulta2_Clientes consu2 = new Consulta2_Clientes();
+        consu2.setVisible(true);
+        consu2.pack();
+        consu2.setLocationRelativeTo(null);
+        consu2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        
+    }//GEN-LAST:event_Consulta2BTNActionPerformed
+
+    private void Consultar3BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Consultar3BTNActionPerformed
+        con.ConectarmeV2();
+        Consulta3_Clientes c3 = new Consulta3_Clientes();
+        c3.setVisible(true);
+        c3.pack();
+        c3.setLocationRelativeTo(null);
+        c3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        
+        
+         PreparedStatement pst;
+         ResultSet rst = null;
+    
+    String consulta = "SELECT * \n" +
+    "FROM public.solicitudes s INNER JOIN public.cliente c on c.usuarios_idusuario = s.cliente_idusuario \n" +
+    "WHERE s.estadosolicitud = 'Proceso'";
+    
+  
+    
+     DefaultTableModel tablita = (DefaultTableModel) c3.TablaConsulta3.getModel();
+           
+           int cantfila = c3.TablaConsulta3.getRowCount();
+           for(int i = cantfila - 1; i>=0; i--){
+               tablita.removeRow(i);
+           }
+           
+           try{
+                pst = con.conexion.prepareStatement(consulta);
+                rst = pst.executeQuery();
+       
+       while(rst.next()){
+           
+            String IdSolicitud = rst.getString("idsolicitud");
+            int Presupuesto = rst.getInt("presupuesto");
+            String EstadoSolicitud = rst.getString("estadosolicitud");
+            int IdCliente = rst.getInt("cliente_idusuario");
+            int IdProyecto = rst.getInt("ps_proyectosoftware_id");
+            String FechaPedido = rst.getString("fechapedido");
+            String Razonsocial = rst.getString("razonsocial");
+            
+           Object[] obj ={IdSolicitud, Presupuesto, EstadoSolicitud, IdCliente, IdProyecto, FechaPedido, Razonsocial};
+           tablita.addRow(obj);
+       }
+    
+    }catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, ex);
+    }
+           
+           
+           
+        
+        
+    }//GEN-LAST:event_Consultar3BTNActionPerformed
+
+    private void Consulta4BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Consulta4BTNActionPerformed
+        con.ConectarmeV2();
+        
+        Consulta4_Clientes c4 = new Consulta4_Clientes();
+        c4.setVisible(true);
+        c4.pack();
+        c4.setLocationRelativeTo(null);
+        c4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        
+        
+        PreparedStatement pst;
+        ResultSet rst = null;
+    
+    String consulta = "SELECT u.idusuario,u.nombre, u.pais,u.ciudad\n" +
+    "FROM public.cliente c INNER JOIN public.solicitudes s on c.usuarios_idusuario = s.cliente_idusuario\n" +
+    "INNER JOIN public.proyectosoftware p on s.ps_proyectosoftware_id = p.proyectosoftware_id \n" +
+    "INNER JOIN public.usuarios u on u.idusuario = c.usuarios_idusuario\n" +
+    "WHERE p.estadoproyecto = 'On Track'";
+   
+     DefaultTableModel tablita4 = (DefaultTableModel) c4.TablaConsulta4.getModel();
+     
+     int cantfila = c4.TablaConsulta4.getRowCount();
+           for(int i = cantfila - 1; i>=0; i--){
+               tablita4.removeRow(i);
+           }
+           
+           try{
+                pst = con.conexion.prepareStatement(consulta);
+                rst = pst.executeQuery();
+       
+       while(rst.next()){
+           
+            int IdSolicitud = rst.getInt("idusuario");
+            String Nombre = rst.getString("nombre");
+            String Pais = rst.getString("pais");
+            String Ciudad = rst.getString("ciudad");
+           
+           Object[] obj ={IdSolicitud, Nombre, Pais, Ciudad};
+           tablita4.addRow(obj);
+       }
+    
+    }catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, ex);
+    }
+    }//GEN-LAST:event_Consulta4BTNActionPerformed
+
+    
+    private void Consulta5BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Consulta5BTNActionPerformed
+        con.ConectarmeV2();
+        Consulta5_Clientes c5 = new Consulta5_Clientes();
+        c5.setVisible(true);
+        c5.pack();
+        c5.setLocationRelativeTo(null);
+        c5.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+        
+        PreparedStatement pst;
+        ResultSet rst = null;
+        
+        String consulta = "SELECT c.usuarios_idusuario , count(*) as cantidad\n" +
+    "FROM public.cliente c INNER JOIN public.solicitudes s on c.usuarios_idusuario = s.cliente_idusuario\n" +
+    "INNER JOIN public.proyectosoftware p on s.ps_proyectosoftware_id = p.proyectosoftware_id \n" +
+    "GROUP BY  c.usuarios_idusuario";
+   
+     DefaultTableModel tablita5 = (DefaultTableModel) c5.TablaConsulta5.getModel();
+     
+     int cantfila = c5.TablaConsulta5.getRowCount();
+           for(int i = cantfila - 1; i>=0; i--){
+               tablita5.removeRow(i);
+           }
+           
+           try{
+                pst = con.conexion.prepareStatement(consulta);
+                rst = pst.executeQuery();
+       
+       while(rst.next()){
+           
+            int IdUsuarios = rst.getInt("usuarios_idusuario");
+            int Cant = rst.getInt("cantidad");
+           
+           Object[] obj ={IdUsuarios, Cant};
+           tablita5.addRow(obj);
+       }
+    
+    }catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, ex);
+    }
+        
+    }//GEN-LAST:event_Consulta5BTNActionPerformed
 
     /**
      * @param args the command line arguments
